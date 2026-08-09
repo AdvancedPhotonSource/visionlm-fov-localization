@@ -1,0 +1,33 @@
+[workspace]
+authors = ["Xiangyu Yin"]
+channels = ["conda-forge"]
+name = "visionlm-fov-localization"
+platforms = ["linux-64"]
+version = "1.0.0"
+
+[dependencies]
+python = "3.10.*"
+numpy = ">=2,<3"
+opencv = ">=4,<5"
+h5py = ">=3,<4"
+pillow = ">=10,<12"
+pytest = ">=8,<9"
+
+[feature.baselines.dependencies]
+pytorch = ">=2.3"
+torchvision = ">=0.18"
+transformers = ">=4.40"
+nibabel = ">=5,<6"
+
+[feature.baselines.pypi-dependencies]
+unigradicon = "*"
+
+[environments]
+default = { solve-group = "default" }
+baselines = { features = ["baselines"], solve-group = "default" }
+
+[tasks]
+test = "python -m pytest -q"
+
+[feature.baselines.tasks]
+test-baseline-imports = "python -m pytest -q tests/test_baseline_imports.py"
