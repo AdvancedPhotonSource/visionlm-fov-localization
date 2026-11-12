@@ -13,8 +13,8 @@ manuscript. It does not include microscopy data, prepared images, frozen model
 responses, model weights, credentials, generated results, or live model access.
 The reported results therefore cannot be reproduced from this repository alone.
 
-The optical/XRF data are available from the corresponding authors upon
-reasonable request.
+The optical images, XRF maps, expert registrations and ground-truth boxes are
+openly available on Hugging Face at https://huggingface.co/datasets/AI4Xrays/xrf-optical-fov-localization (doi:10.57967/hf/11597).
 
 ## Code Map
 
@@ -26,7 +26,10 @@ reasonable request.
 | Gradient + NCC template matching | `baselines/classical.py` |
 | DINOv2 dense-feature baseline | `baselines/dinov2.py` |
 | multiGradICON adaptation | `baselines/multigradicon.py` |
+| LoFTR dense feature matching | `baselines/loftr.py` |
+| OWLv2 image-guided detection | `baselines/owlv2.py` |
 | Proposal generation and image-based verification | `proposal_verify/` |
+| Model judge over the direct answers | `proposal_verify/judge.py` |
 | IoU, bootstrap intervals, sign-flip tests, and leave-one-pair-out selection | `evaluation.py` |
 | Paper-specific settings and policy thresholds | `settings.py` |
 
@@ -45,8 +48,8 @@ pixi install
 pixi run test
 ```
 
-The optional Linux baseline environment adds the packages used by DINOv2 and
-multiGradICON. Its smoke checks do not download model weights:
+The optional Linux baseline environment adds the packages used by DINOv2,
+multiGradICON, LoFTR and OWLv2. Its smoke checks do not download model weights:
 
 ```bash
 pixi install -e baselines

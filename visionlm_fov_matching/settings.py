@@ -34,6 +34,16 @@ class ZoomPolicySettings:
 
 
 @dataclass(frozen=True)
+class JudgeSettings:
+    candidate_demonstrations: tuple[int, ...] = (3, 0)
+    candidate_repeats: int = 3
+    duplicate_iou: float = 0.8
+    crop_margin_fraction: float = 0.25
+    image_max_side: int = 1024
+    calls: int = 3
+
+
+@dataclass(frozen=True)
 class PaperSettings:
     xrf_channel: str
     inputs_pre_rotated: bool
@@ -45,6 +55,7 @@ class PaperSettings:
     controlled_metadata: MetadataPolicySettings
     challenging_metadata: MetadataPolicySettings
     unconstrained_zoom: ZoomPolicySettings
+    model_judge: JudgeSettings
     ablation_strategies: tuple[str, ...]
     ablation_demonstration_counts: tuple[int, ...]
 
@@ -74,6 +85,7 @@ PAPER_SETTINGS = PaperSettings(
         fallback_template_area=60_000,
     ),
     unconstrained_zoom=ZoomPolicySettings(),
+    model_judge=JudgeSettings(),
     ablation_strategies=("top_left_xy", "center_xy", "frac_xy"),
     ablation_demonstration_counts=(0, 1, 2, 3),
 )
